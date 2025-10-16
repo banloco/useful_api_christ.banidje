@@ -35,13 +35,23 @@ class ModuleController extends Controller
      */
     public function show(string $id)
     {
+        $user = Auth::user();
         $module = Module::findOrFail($id);
-        
-        if (!$module->active) {
-            return response()->json([
 
+        $getActiveModule = DB::table('user_modules')->select('active')->where([
+            'user_id' => $user->id,
+            'module_id' => $module->id,
+        ]);
+
+        if (!$getActiveModule) {
+            return response()->json([
+                'error' => "Module inactive. Please activate this module to use it."
             ], 403);
         }
+        
+        return response()->json([
+            $module,
+        ], 200);
     }
 
     /**

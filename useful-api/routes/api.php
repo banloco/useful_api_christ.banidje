@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/modules/{id}/activate', [ModuleController::class, 'activate']);
     Route::post('/modules/{id}/desactivate', [ModuleController::class, 'desactivate']);
     Route::middleware('CheckModuleActive')->group(function () {
+        Route::apiResource('/shorten', UrlShortenController::class);
     });
     Route::post('/logout', [AuthController::class, 'logout']);
 });
