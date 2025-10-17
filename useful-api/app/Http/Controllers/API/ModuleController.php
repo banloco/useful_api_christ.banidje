@@ -46,7 +46,7 @@ class ModuleController extends Controller
         if (!$getActiveModule) {
             return response()->json([
                 'error' => "Module inactive. Please activate this module to use it."
-            ], 403);
+            ], 403.);
         }
         
         return response()->json([
